@@ -23,4 +23,8 @@ app.post('/search', (req, res) => {
     });
 });
 
-app.listen(process.env.SERVER_PORT);
+app.get('/', (req, res) => {
+  res.send('OK');
+});
+
+app.listen(process.env.PORT || 3000);

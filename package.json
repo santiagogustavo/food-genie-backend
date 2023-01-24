@@ -3,7 +3,9 @@
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
+  "engines": { "node" : "16.14.0" },
   "scripts": {
+    "start": "node index.js",
     "dev": "nodemon",
     "lint": "eslint --ext .js --ignore-path .gitignore --fix ."
   },
