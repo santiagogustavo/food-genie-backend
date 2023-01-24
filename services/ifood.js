@@ -3,7 +3,7 @@ const axios = require('axios');
 const { SEARCH } = require('../constants/urls');
 
 const ifoodInstance = axios.create({
-  baseURL: 'https://marketplace.ifood.com.br',
+  baseURL: process.env.IFOOD_API,
   timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': '*',
