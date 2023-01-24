@@ -1,5 +1,7 @@
 const express = require('express');
 const cors = require('cors');
+const http = require('http');
+const https = require('https');
 require('dotenv').config();
 
 const app = express();
@@ -9,6 +11,7 @@ app.use(
   })
 );
 
+const { getCert, getKey } = require('./services/s3');
 const { postSearch } = require('./services/ifood');
 
 app.post('/search', (req, res) => {
@@ -27,4 +30,22 @@ app.get('/', (req, res) => {
   res.send(`OK - ${process.env.IFOOD_API}`);
 });
 
-app.listen(process.env.PORT || process.env.SERVER_PORT);
+const port = process.env.PORT || process.env.SERVER_PORT;
+
+if (process.env.MODE === 'DEV') {
+  http.createServer(app).listen(port, () => {
+    console.log(`[HTTP] Running at port ${port}`);
+  });
+} else {
+  let cert;
+  let key;
+
+  (async () => {
+    cert = await getCert();
+    key = await getKey();
+  })();
+
+  https.createServer({ key, cert }, app).listen(port, () => {
+    console.log(`[HTTPS] Running at port ${port}`);
+  });
+}
