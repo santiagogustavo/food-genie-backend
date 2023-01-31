@@ -55,10 +55,10 @@ app.post('/category', (req, res) => {
     });
 });
 
-app.get('/merchant', (req, res) => {
+app.post('/merchant', (req, res) => {
   getMerchantCatalog(req.query)
     .then(({ data }) => {
-      res.status(200);
+      res.status(201);
       res.send(data);
     })
     .catch(error => {

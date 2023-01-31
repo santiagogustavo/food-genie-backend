@@ -27,7 +27,7 @@ const CATEGORY_PAGE = '/v1/page';
 // merchantId: string
 // latitude: number
 // longitude: number
-const MERCHANT_CATALOG = '/ifood-ws-v3/v1/merchants';
+const MERCHANT_CATALOG = '/v1/merchants';
 
 const CERT_URL = '/cert.pem';
 const KEY_URL = '/key.pem';

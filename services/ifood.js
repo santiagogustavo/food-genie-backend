@@ -11,10 +11,12 @@ const ifoodInstance = axios.create({
 });
 
 const ifoodStoresInstance = axios.create({
-  baseURL: process.env.IFOOD_STORES_API,
+  baseURL: process.env.IFOOD_WS_API,
   timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': '*',
+    access_key: process.env.IFOOD_WS_ACCESS_KEY,
+    secret_key: process.env.IFOOD_WS_SECRET_KEY,
   },
 });
 
@@ -66,13 +68,15 @@ const postSearchHome = query =>
 const postSearch = query =>
   ifoodInstance.post(SEARCH, defaultHeaders, { params: { ...query, channel: 'IFOOD' } });
 
-const postCategoryPage = ({ categoryId, ...query }) =>
-  ifoodInstance.post(`${CATEGORY_PAGE}/${categoryId}`, defaultHeaders, {
+const postCategoryPage = ({ categoryId, ...query }) => {
+  const url = `${CATEGORY_PAGE}/${categoryId}`;
+  return ifoodInstance.post(url, defaultHeaders, {
     params: { ...query, channel: 'IFOOD' },
   });
+};
 
 const getMerchantCatalog = ({ merchantId, ...query }) =>
-  ifoodStoresInstance.get(`${MERCHANT_CATALOG}/${merchantId}/catalog`, undefined, {
+  ifoodStoresInstance.get(`${MERCHANT_CATALOG}/${merchantId}/catalog`, {
     params: { ...query, channel: 'IFOOD' },
   });
 
