@@ -12,12 +12,53 @@ app.use(
 );
 
 const { getCert, getKey } = require('./services/s3');
-const { postSearch } = require('./services/ifood');
+const {
+  postSearch,
+  postSearchHome,
+  postCategoryPage,
+  getMerchantCatalog,
+} = require('./services/ifood');
 
 app.post('/search', (req, res) => {
   postSearch(req.query)
     .then(({ data }) => {
       res.status(201);
+      res.send(data);
+    })
+    .catch(error => {
+      res.status(500);
+      res.send(error);
+    });
+});
+
+app.post('/search/home', (req, res) => {
+  postSearchHome(req.query)
+    .then(({ data }) => {
+      res.status(201);
+      res.send(data);
+    })
+    .catch(error => {
+      res.status(500);
+      res.send(error);
+    });
+});
+
+app.post('/category', (req, res) => {
+  postCategoryPage(req.query)
+    .then(({ data }) => {
+      res.status(201);
+      res.send(data);
+    })
+    .catch(error => {
+      res.status(500);
+      res.send(error);
+    });
+});
+
+app.get('/merchant', (req, res) => {
+  getMerchantCatalog(req.query)
+    .then(({ data }) => {
+      res.status(200);
       res.send(data);
     })
     .catch(error => {
