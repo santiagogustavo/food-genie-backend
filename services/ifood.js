@@ -7,14 +7,15 @@ const ifoodInstance = axios.create({
   timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': '*',
+    'Cache-Control': 'no-cache, no-store',
   },
 });
-
 const ifoodStoresInstance = axios.create({
   baseURL: process.env.IFOOD_WS_API,
   timeout: 10000,
   headers: {
     'Access-Control-Allow-Origin': '*',
+    'Cache-Control': 'no-cache, no-store',
     access_key: process.env.IFOOD_WS_ACCESS_KEY,
     secret_key: process.env.IFOOD_WS_SECRET_KEY,
   },
